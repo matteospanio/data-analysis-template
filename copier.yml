@@ -1,0 +1,65 @@
+_exclude:
+    - "copier.yaml"
+    - "copier.yml"
+    - "~*"
+    - "*.py[co]"
+    - "__pycache__"
+    - ".git"
+    - ".DS_Store"
+    - ".svn"
+    - "README.md$"
+    - "license"
+
+_tasks:
+    - "git init"
+    - "git add *"
+    - "git add .copier-answers.yml .editorconfig .gitignore .pre-commit-config.yaml"
+    - "git commit -m 'Initial commit'"
+
+_message_after_copy: |
+    Your project "{{ project_name }}" has been created successfully!
+
+        Next steps:
+
+    1. Change directory to the project root:
+
+       $ cd {{ _copier_conf.dst_path }}
+
+    2. Start the development environment:
+
+       $ make install
+       $ make activate
+
+project_name:
+    type: str
+    help: What is your project name?
+    default: my-super-project
+    validator: >-
+        {% if not (project_name | regex_search('^[a-z][a-z0-9\-]+$')) %}
+        project_name must start with a letter, followed one or more letters, digits or dashes all lowercase.
+        {% endif %}
+
+project_description:
+    type: str
+    help: What is your project description?
+    default: My super project
+
+author:
+    type: str
+    help: Who is the author?
+    placeholder: Mario Rossi
+
+email:
+    type: str
+    help: What is the author's email?
+    placeholder: "mario@rossi.com"
+    default: "example@example.com"
+
+license:
+    type: str
+    help: How is this project licensed?
+    choices:
+        - GPLv3
+        - Apache
+        - BSD3
+        - MIT
