@@ -20,5 +20,5 @@ This is a template for data science projects. It is based on the [copier templat
 ## Usage
 
 1. Install copier: `pipx install copier`
-2. Copy this template: `copier gh:matteospanio/data-science-template <your-project-name>`
+2. Copy this template: `copier copy gh:matteospanio/data-analysis-template <your-project-name> --trust`
 3. Install the dependencies: `make install`
