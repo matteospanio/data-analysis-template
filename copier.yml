@@ -30,6 +30,8 @@ _message_after_copy: |
        $ make install
        $ make activate
 
+_subdirectory: template
+
 project_name:
     type: str
     help: What is your project name?
@@ -54,6 +56,10 @@ email:
     help: What is the author's email?
     placeholder: "mario@rossi.com"
     default: "example@example.com"
+    validator: >-
+        {% if not (email | regex_search('^[a-z0-9\.\-]+@[a-z0-9\-]+\.[a-z0-9\-\.]+$')) %}
+        email must be a valid email address.
+        {% endif %}
 
 license:
     type: str

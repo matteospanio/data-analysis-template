@@ -22,7 +22,7 @@ END = '\033[0m'
 print("Usage: make <target>\n")
 print(BOLD + "%-20s%s" % ("target", "description") + END)
 for line in sys.stdin:
-	match = re.match(r'^([a-zA-Z_-]+):.*?## (.*)$$', line)
+	match = re.match(r'^([a-zA-Z0-9_/\\-]+\.?.*?):.*?## (.*)$$', line)
 	if match:
 		target, help = match.groups()
 		print( BLUE + "%-20s" % (target) + END + "%s" % (help))
@@ -67,9 +67,8 @@ test: ## run tests quickly with the default Python
 	@echo "Run pytest suite"
 	@$(POETRY) pytest
 
-.PHONY: test-coverage
-test-coverage: ## run tests with coverage
-	$(POETRY) pytest --cov-config .coveragerc --cov-report term-missing --cov-report html --cov=src
+htmlcov: ## run tests with coverage
+	$(POETRY) pytest --cov-report term-missing --cov-report html --cov=src
 
 .PHONY: format
 format: ## format code
